@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { randomUUID } from 'node:crypto'
 import hash from '@adonisjs/core/services/hash'
 import { BaseModel, beforeCreate, beforeSave, column } from '@adonisjs/lucid/orm'
+import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 
 export enum Roles {
   ADMIN = 'ADMIN',
@@ -42,4 +43,5 @@ export default class User extends BaseModel {
       user.password = await hash.make(user.password)
     }
   }
+  static readonly accessTokens = DbAccessTokensProvider.forModel(User)
 }
