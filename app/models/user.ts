@@ -1,18 +1,37 @@
-import { UserSchema } from '#database/schema'
-import hash from '@adonisjs/core/services/hash'
-import { compose } from '@adonisjs/core/helpers'
-import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
-import { type AccessToken, DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
+import { DateTime } from 'luxon'
+import { randomUUID } from 'node:crypto'
+import { BaseModel, beforeCreate, column } from '@adonisjs/lucid/orm'
 
-export default class User extends compose(UserSchema, withAuthFinder(hash)) {
-  static accessTokens = DbAccessTokensProvider.forModel(User)
-  declare currentAccessToken?: AccessToken
+export enum Roles {
+  ADMIN = 'ADMIN',
+  MANAGER = 'MANAGER',
+  FINANCE = 'FINANCE',
+  USER = 'USER',
+}
 
-  get initials() {
-    const [first, last] = this.fullName ? this.fullName.split(' ') : this.email.split('@')
-    if (first && last) {
-      return `${first.charAt(0)}${last.charAt(0)}`.toUpperCase()
+export default class User extends BaseModel {
+  @column({ isPrimary: true })
+  declare id: string
+
+  @column()
+  declare email: string
+
+  @column()
+  declare password: string
+
+  @column()
+  declare role: Roles
+
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+
+  @beforeCreate()
+  public static assignUuid(user: User) {
+    if (!user.id) {
+      user.id = randomUUID()
     }
-    return `${first.slice(0, 2)}`.toUpperCase()
   }
 }
