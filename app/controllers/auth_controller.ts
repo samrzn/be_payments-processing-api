@@ -1,31 +1,25 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import User from '#models/user'
-import hash from '@adonisjs/core/services/hash'
+import vine from '@vinejs/vine'
+import AuthService from '../services/auth_service.ts'
+
+const loginValidator = vine.create(
+  vine.object({
+    email: vine.string().email(),
+    password: vine.string(),
+  })
+)
 
 export default class AuthController {
   public async login({ request, response }: HttpContext) {
-    const { email, password } = request.only(['email', 'password'])
-    const user = await User.findBy('email', email)
+    const payload = await request.validateUsing(loginValidator)
 
-    if (!user) {
-      return response.unauthorized({ message: 'Usuário inválido, e-mail não cadastrado' })
+    try {
+      const authService = new AuthService()
+      const authResult = await authService.authenticate(payload.email, payload.password)
+
+      return response.ok(authResult)
+    } catch (error) {
+      return response.status(error.status || 500).send({ message: error.message })
     }
-
-    const isPasswordValid = await hash.verify(user.password, password)
-
-    if (!isPasswordValid) {
-      return response.unauthorized({ message: 'Senha incorreta.' })
-    }
-
-    const token = await User.accessTokens.create(user)
-
-    return response.ok({
-      user: {
-        id: user.id,
-        email: user.email,
-        role: user.role,
-      },
-      token: token.value!.release(),
-    })
   }
 }
