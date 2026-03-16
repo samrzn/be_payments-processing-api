@@ -30,6 +30,18 @@ const routes = {
     tokens: [{"old":"/api/gateways/priority","type":0,"val":"api","end":""},{"old":"/api/gateways/priority","type":0,"val":"gateways","end":""},{"old":"/api/gateways/priority","type":0,"val":"priority","end":""}],
     types: placeholder as Registry['gateways.update_priority']['types'],
   },
+  'products.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/products',
+    tokens: [{"old":"/api/products","type":0,"val":"api","end":""},{"old":"/api/products","type":0,"val":"products","end":""}],
+    types: placeholder as Registry['products.index']['types'],
+  },
+  'products.store': {
+    methods: ["POST"],
+    pattern: '/api/products',
+    tokens: [{"old":"/api/products","type":0,"val":"api","end":""},{"old":"/api/products","type":0,"val":"products","end":""}],
+    types: placeholder as Registry['products.store']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

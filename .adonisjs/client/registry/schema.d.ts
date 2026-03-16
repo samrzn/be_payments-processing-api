@@ -11,10 +11,10 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/api/login'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#app/validators/user').loginValidator)>>
+      body: ExtractBody<InferInput<(typeof import('#app/validators/user_validator').loginValidator)>>
       paramsTuple: []
       params: {}
-      query: ExtractQuery<InferInput<(typeof import('#app/validators/user').loginValidator)>>
+      query: ExtractQuery<InferInput<(typeof import('#app/validators/user_validator').loginValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['login']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['login']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
@@ -53,6 +53,30 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/gateway_validator').updatePriorityValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/gateways_controller').default['updatePriority']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/gateways_controller').default['updatePriority']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'products.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/products'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/products_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/products_controller').default['index']>>>
+    }
+  }
+  'products.store': {
+    methods: ["POST"]
+    pattern: '/api/products'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/product_validator').createProductValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/product_validator').createProductValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/products_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/products_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
 }

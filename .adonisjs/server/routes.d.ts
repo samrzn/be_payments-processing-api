@@ -8,15 +8,20 @@ export type ScannedRoutes = {
     'gateways.index': { paramsTuple?: []; params?: {} }
     'gateways.toggle': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'gateways.update_priority': { paramsTuple?: []; params?: {} }
+    'products.index': { paramsTuple?: []; params?: {} }
+    'products.store': { paramsTuple?: []; params?: {} }
   }
   POST: {
     'auth.login': { paramsTuple?: []; params?: {} }
+    'products.store': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'gateways.index': { paramsTuple?: []; params?: {} }
+    'products.index': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
     'gateways.index': { paramsTuple?: []; params?: {} }
+    'products.index': { paramsTuple?: []; params?: {} }
   }
   PATCH: {
     'gateways.toggle': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
