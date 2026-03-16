@@ -1,9 +1,11 @@
 import { test } from '@japa/runner'
+import testUtils from '@adonisjs/core/services/test_utils'
 import User, { Roles } from '#models/user'
 
 test.group('Auth / Login', (group) => {
+  group.each.setup(() => testUtils.db().truncate())
+
   group.each.setup(async () => {
-    await User.query().delete()
     await User.create({
       email: 'test@be.tech',
       password: 'password123',
@@ -26,7 +28,9 @@ test.group('Auth / Login', (group) => {
     })
 
     response.assertStatus(401)
-    response.assertBodyContains({ message: 'Senha incorreta' })
+    response.assertBodyContains({
+      message: 'Senha incorreta',
+    })
   })
 
   test('deve realizar o login com sucesso e retornar o token', async ({ client }) => {

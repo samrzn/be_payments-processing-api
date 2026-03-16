@@ -1,4 +1,5 @@
 import { test } from '@japa/runner'
+import testUtils from '@adonisjs/core/services/test_utils'
 import User, { Roles } from '#models/user'
 import Gateway from '#models/gateway'
 
@@ -8,10 +9,9 @@ test.group('Gateways', (group) => {
   let gateway1: Gateway
   let gateway2: Gateway
 
-  group.each.setup(async () => {
-    await Gateway.query().delete()
-    await User.query().delete()
+  group.each.setup(() => testUtils.db().truncate())
 
+  group.each.setup(async () => {
     adminUser = await User.create({
       email: 'admin_test@be.tech',
       password: 'password123',
@@ -24,8 +24,17 @@ test.group('Gateways', (group) => {
       role: Roles.USER,
     })
 
-    gateway1 = await Gateway.create({ name: 'Gateway 1', priority: 1, isActive: true })
-    gateway2 = await Gateway.create({ name: 'Gateway 2', priority: 2, isActive: true })
+    gateway1 = await Gateway.create({
+      name: 'Gateway 1',
+      priority: 1,
+      isActive: true,
+    })
+
+    gateway2 = await Gateway.create({
+      name: 'Gateway 2',
+      priority: 2,
+      isActive: true,
+    })
   })
 
   test('deve retornar 401 se não estiver autenticado', async ({ client }) => {
@@ -46,9 +55,11 @@ test.group('Gateways', (group) => {
     const response = await client.get('/api/gateways').loginAs(adminUser)
 
     response.assertStatus(200)
-
     response.assert.lengthOf(response.body(), 2)
     response.assert.equal(response.body()[0].name, 'Gateway 1')
+    response.assert.equal(response.body()[0].priority, 1)
+    response.assert.equal(response.body()[1].name, 'Gateway 2')
+    response.assert.equal(response.body()[1].priority, 2)
   })
 
   test('deve falhar no toggle se enviar payload invalido (VineJS)', async ({ client }) => {
