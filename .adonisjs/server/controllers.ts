@@ -5,5 +5,5 @@
 
 export const controllers = {
   Auth: () => import('#controllers/auth_controller'),
-  Gateways: () => import('#controllers/gateways_controller')
+  Gateways: () => import('#controllers/gateways_controller'),
 }
