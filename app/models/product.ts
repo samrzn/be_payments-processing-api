@@ -1,0 +1,27 @@
+import { DateTime } from 'luxon'
+import { randomUUID } from 'node:crypto'
+import { BaseModel, beforeCreate, column } from '@adonisjs/lucid/orm'
+
+export default class Product extends BaseModel {
+  @column({ isPrimary: true })
+  declare id: string
+
+  @column()
+  declare name: string
+
+  @column()
+  declare amount: number
+
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+
+  @beforeCreate()
+  public static assignUuid(product: Product) {
+    if (!product.id) {
+      product.id = randomUUID()
+    }
+  }
+}
