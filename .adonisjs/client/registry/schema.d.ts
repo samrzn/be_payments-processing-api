@@ -35,10 +35,10 @@ export interface Registry {
     methods: ["PATCH"]
     pattern: '/api/gateways/:id/toggle'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/gateway').toggleGatewayValidator)>>
+      body: ExtractBody<InferInput<(typeof import('#validators/gateway_validator').toggleGatewayValidator)>>
       paramsTuple: [ParamValue]
       params: { id: ParamValue }
-      query: ExtractQuery<InferInput<(typeof import('#validators/gateway').toggleGatewayValidator)>>
+      query: ExtractQuery<InferInput<(typeof import('#validators/gateway_validator').toggleGatewayValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/gateways_controller').default['toggle']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/gateways_controller').default['toggle']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
@@ -47,10 +47,10 @@ export interface Registry {
     methods: ["PATCH"]
     pattern: '/api/gateways/priority'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/gateway').updatePriorityValidator)>>
+      body: ExtractBody<InferInput<(typeof import('#validators/gateway_validator').updatePriorityValidator)>>
       paramsTuple: []
       params: {}
-      query: ExtractQuery<InferInput<(typeof import('#validators/gateway').updatePriorityValidator)>>
+      query: ExtractQuery<InferInput<(typeof import('#validators/gateway_validator').updatePriorityValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/gateways_controller').default['updatePriority']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/gateways_controller').default['updatePriority']>>> | { status: 422; response: { errors: SimpleError[] } }
     }

@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { inject } from '@adonisjs/core'
 
-import { toggleGatewayValidator, updatePriorityValidator } from '#validators/gateway'
+import { toggleGatewayValidator, updatePriorityValidator } from '#validators/gateway_validator'
 
 import ListGatewaysUseCase from '../use-cases/gateways/list_gateways_use_case.ts'
 import ToggleGatewayUseCase from '../use-cases/gateways/toggle_gateway_use_case.ts'

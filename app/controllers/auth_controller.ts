@@ -1,6 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { inject } from '@adonisjs/core'
-import { loginValidator } from '../validators/user.ts'
+import { loginValidator } from '../validators/user_validator.ts'
 import LoginUseCase from '../use-cases/auth/login_use_case.ts'
 
 @inject()
