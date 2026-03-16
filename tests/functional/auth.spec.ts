@@ -26,7 +26,7 @@ test.group('Auth / Login', (group) => {
     })
 
     response.assertStatus(401)
-    response.assertBodyContains({ message: 'Credenciais inválidas' })
+    response.assertBodyContains({ message: 'Senha incorreta' })
   })
 
   test('deve realizar o login com sucesso e retornar o token', async ({ client }) => {

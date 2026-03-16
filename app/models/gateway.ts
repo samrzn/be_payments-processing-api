@@ -11,7 +11,11 @@ export default class Gateway extends BaseModel {
   @column()
   declare name: string
 
-  @column()
+  @column({
+    columnName: 'is_active',
+    consume: Boolean,
+    prepare: (value: boolean) => (value ? 1 : 0),
+  })
   declare isActive: boolean
 
   @column()
