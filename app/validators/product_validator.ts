@@ -6,3 +6,10 @@ export const createProductValidator = vine.create(
     amount: vine.number().withoutDecimals().min(1),
   })
 )
+
+export const updateProductValidator = vine.create(
+  vine.object({
+    name: vine.string().trim().minLength(2).optional(),
+    amount: vine.number().withoutDecimals().min(1).optional(),
+  })
+)
