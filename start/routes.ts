@@ -1,5 +1,5 @@
-import { controllers } from '#generated/controllers'
 import router from '@adonisjs/core/services/router'
+import { controllers } from '#generated/controllers'
 import { middleware } from '#start/kernel'
 import { Roles } from '#models/user'
 
@@ -30,8 +30,12 @@ router
     // Products routes
     router.get('/products', [controllers.Products, 'index'])
     router
-      .post('/products', [controllers.Products, 'store'])
-      .use(middleware.role([Roles.ADMIN, Roles.MANAGER]))
+      .group(() => {
+        router.post('/products', [controllers.Products, 'store'])
+        router.patch('/products/:id', [controllers.Products, 'update'])
+        router.delete('/products/:id', [controllers.Products, 'destroy'])
+      })
+      .use(middleware.role([Roles.ADMIN, Roles.MANAGER, Roles.FINANCE]))
   })
   .prefix('/api')
   .use(middleware.auth())
