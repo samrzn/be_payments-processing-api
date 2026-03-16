@@ -1,17 +1,23 @@
 import vine from '@vinejs/vine'
 
-const email = () => vine.string().email().maxLength(255)
-const password = () => vine.string().minLength(8).maxLength(32)
+export const signupValidator = vine.create(
+  vine.object({
+    email: vine
+      .string()
+      .email()
+      .maxLength(255)
+      .unique(async (db, value) => {
+        const match = await db.from('users').select('id').where('email', value).first()
+        return !match
+      }),
 
-export const signupValidator = vine.create({
-  email: email().unique({ table: 'users', column: 'email' }),
-  password: password(),
-  passwordConfirmation: password().sameAs('password'),
-})
+    password: vine.string().minLength(8).maxLength(32),
+  })
+)
 
 export const loginValidator = vine.create(
   vine.object({
-    email: vine.string().email(),
-    password: vine.string(),
+    email: vine.string().email().maxLength(255),
+    password: vine.string().minLength(8).maxLength(32),
   })
 )
