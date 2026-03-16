@@ -19,5 +19,7 @@ export interface ApiDefinition {
   products: {
     index: typeof routes['products.index']
     store: typeof routes['products.store']
+    update: typeof routes['products.update']
+    destroy: typeof routes['products.destroy']
   }
 }
