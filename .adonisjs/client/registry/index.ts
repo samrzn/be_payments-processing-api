@@ -12,6 +12,12 @@ const routes = {
     tokens: [{"old":"/api/login","type":0,"val":"api","end":""},{"old":"/api/login","type":0,"val":"login","end":""}],
     types: placeholder as Registry['auth.login']['types'],
   },
+  'auth.signup': {
+    methods: ["POST"],
+    pattern: '/api/signup',
+    tokens: [{"old":"/api/signup","type":0,"val":"api","end":""},{"old":"/api/signup","type":0,"val":"signup","end":""}],
+    types: placeholder as Registry['auth.signup']['types'],
+  },
   'gateways.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/gateways',

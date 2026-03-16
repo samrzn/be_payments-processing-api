@@ -5,6 +5,7 @@ type ParamValue = string | number | bigint | boolean
 export type ScannedRoutes = {
   ALL: {
     'auth.login': { paramsTuple?: []; params?: {} }
+    'auth.signup': { paramsTuple?: []; params?: {} }
     'gateways.index': { paramsTuple?: []; params?: {} }
     'gateways.toggle': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'gateways.update_priority': { paramsTuple?: []; params?: {} }
@@ -13,6 +14,7 @@ export type ScannedRoutes = {
   }
   POST: {
     'auth.login': { paramsTuple?: []; params?: {} }
+    'auth.signup': { paramsTuple?: []; params?: {} }
     'products.store': { paramsTuple?: []; params?: {} }
   }
   GET: {
