@@ -3,14 +3,23 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
 import { Roles } from '#models/user'
 
-// User routes
+// Public routes
 router.post('/api/login', [controllers.Auth, 'login'])
 router.post('/api/signup', [controllers.Auth, 'signup'])
 
 router
   .group(() => {
+    // Users routes
     router
-      // Gateways routes
+      .group(() => {
+        router.get('/users', [controllers.Users, 'index'])
+        router.patch('/users/:id', [controllers.Users, 'update'])
+        router.delete('/users/:id', [controllers.Users, 'destroy'])
+      })
+      .use(middleware.role([Roles.ADMIN, Roles.MANAGER]))
+
+    // Gateways routes
+    router
       .group(() => {
         router.get('/gateways', [controllers.Gateways, 'index'])
         router.patch('/gateways/:id/toggle', [controllers.Gateways, 'toggle'])
