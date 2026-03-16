@@ -19,6 +19,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['login']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'auth.signup': {
+    methods: ["POST"]
+    pattern: '/api/signup'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#app/validators/user_validator').signupValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#app/validators/user_validator').signupValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['signup']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['signup']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'gateways.index': {
     methods: ["GET","HEAD"]
     pattern: '/api/gateways'

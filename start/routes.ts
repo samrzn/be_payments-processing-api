@@ -3,7 +3,9 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
 import { Roles } from '#models/user'
 
+// User routes
 router.post('/api/login', [controllers.Auth, 'login'])
+router.post('/api/signup', [controllers.Auth, 'signup'])
 
 router
   .group(() => {
