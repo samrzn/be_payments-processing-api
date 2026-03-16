@@ -18,6 +18,24 @@ const routes = {
     tokens: [{"old":"/api/signup","type":0,"val":"api","end":""},{"old":"/api/signup","type":0,"val":"signup","end":""}],
     types: placeholder as Registry['auth.signup']['types'],
   },
+  'users.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/users',
+    tokens: [{"old":"/api/users","type":0,"val":"api","end":""},{"old":"/api/users","type":0,"val":"users","end":""}],
+    types: placeholder as Registry['users.index']['types'],
+  },
+  'users.update': {
+    methods: ["PATCH"],
+    pattern: '/api/users/:id',
+    tokens: [{"old":"/api/users/:id","type":0,"val":"api","end":""},{"old":"/api/users/:id","type":0,"val":"users","end":""},{"old":"/api/users/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['users.update']['types'],
+  },
+  'users.destroy': {
+    methods: ["DELETE"],
+    pattern: '/api/users/:id',
+    tokens: [{"old":"/api/users/:id","type":0,"val":"api","end":""},{"old":"/api/users/:id","type":0,"val":"users","end":""},{"old":"/api/users/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['users.destroy']['types'],
+  },
   'gateways.index': {
     methods: ["GET","HEAD"],
     pattern: '/api/gateways',

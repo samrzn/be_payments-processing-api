@@ -6,6 +6,11 @@ export interface ApiDefinition {
     login: typeof routes['auth.login']
     signup: typeof routes['auth.signup']
   }
+  users: {
+    index: typeof routes['users.index']
+    update: typeof routes['users.update']
+    destroy: typeof routes['users.destroy']
+  }
   gateways: {
     index: typeof routes['gateways.index']
     toggle: typeof routes['gateways.toggle']
