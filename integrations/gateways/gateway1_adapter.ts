@@ -26,7 +26,7 @@ export default class Gateway1Adapter implements PaymentGatewayContracts {
         throw new Error(`HTTP Error: ${response.status}`)
       }
 
-      const data = await response.json()
+      const data = (await response.json()) as { token: string }
       return data.token
     } catch (error) {
       logger.error({ err: error }, 'Falha ao autenticar no Gateway 1')
@@ -53,7 +53,7 @@ export default class Gateway1Adapter implements PaymentGatewayContracts {
         }),
       })
 
-      const responseData = await response.json()
+      const responseData = (await response.json()) as { id?: string; message?: string }
 
       if (!response.ok) {
         logger.warn(
@@ -90,7 +90,7 @@ export default class Gateway1Adapter implements PaymentGatewayContracts {
       )
 
       if (!response.ok) {
-        const responseData = await response.json().catch(() => ({}))
+        const responseData = (await response.json().catch(() => ({}))) as { message?: string }
         logger.warn(`Gateway 1 recusou o estorno da transação ${gatewayTransactionId}`)
         return {
           success: false,
