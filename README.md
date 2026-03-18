@@ -97,11 +97,15 @@ cd <pasta-do-projeto>
 
 ```
 
-2. Crie o arquivo de configuração de ambiente:
+2. Crie o arquivo de configuração de ambiente e em seguida rode o comando 'generate:key' para gerar a chave de acesso:
 
 ```bash
 cp .env.example .env
 
+```
+
+```bash
+node ace generate:key
 ```
 
 3. Suba a infraestrutura:
